@@ -9,6 +9,7 @@ import {
 import ErrorMessage from "../components/ErrorMessage/ErrorMessage";
 import Loader from "../components/Loader/Loader";
 import { requestMoviesById } from "../services/api";
+import css from "./MovieDetailsPage.module.css";
 
 const MovieCast = lazy(() => import("../components/MovieCast/MovieCast"));
 const MovieReviews = lazy(() =>
@@ -39,54 +40,61 @@ const MovieDetailsPage = () => {
     fetchMoviesId();
   }, [movieId]);
 
+  const year = movieData?.release_date
+    ? new Date(movieData.release_date).getFullYear()
+    : "?";
+
   return (
     <div>
       {isLoading && <Loader />}
       {isError && <ErrorMessage />}
       {movieData !== null && (
         <section>
-          <NavLink to={backLinkRef}>Go Back</NavLink>
-          <div>
-            <img
-              src={`https://image.tmdb.org/t/p/w500${movieData.poster_path}`}
-              alt={movieData.title}
-            />
-            <ul>
-              <li>
-                <h2>{movieData.title}</h2>
-              </li>
-              <li>
-                <p>
-                  <span>Overview: </span>
-                  {movieData.overview}
-                </p>
-              </li>
-              <li>
-                <p>
-                  <span>User Score: </span>
-                  {movieData.vote_average}
-                </p>
-              </li>
+          <NavLink to={backLinkRef} className={css.backlLink}>
+            Go Back
+          </NavLink>
+          <div className={css.movieBaseInfo}>
+            <div className={css.moviePoster}>
+              <img
+                src={`https://image.tmdb.org/t/p/w500${movieData.poster_path}`}
+                width="500"
+                alt={movieData.title}
+                className={css.movieImg}
+              />
+            </div>
+            <div className={css.movieInfo}>
+              <h1 className={css.movieTitle}>
+                {movieData.title} ({year})
+              </h1>
+              <p>User Score: {movieData.vote_average}</p>
+              <h2>Overview</h2>
+              {movieData.overview}
+              <h2>Genres</h2>
               {movieData.genres && (
-                <li>
-                  <p>
-                    <span>Genres: </span>
-                    {movieData.genres.map((genre) => genre.name).join(", ")}
-                  </p>
-                </li>
+                <p className="genres">
+                  {" "}
+                  {movieData.genres.map((genre) => {
+                    return <span key={genre.id}>{genre.name}</span>;
+                  })}
+                </p>
               )}
-            </ul>
+            </div>
           </div>
+
           <h2>Additional information</h2>
         </section>
       )}
 
       <div>
         {movieData && (
-          <div>
-            <NavLink to="cast">Cast</NavLink>
-            <NavLink to="reviews">Reviews</NavLink>
-          </div>
+          <ul>
+            <li>
+              <NavLink to="cast">Cast</NavLink>
+            </li>
+            <li>
+              <NavLink to="reviews">Reviews</NavLink>
+            </li>
+          </ul>
         )}
       </div>
       <div>

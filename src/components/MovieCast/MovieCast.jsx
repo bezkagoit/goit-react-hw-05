@@ -3,6 +3,7 @@ import Loader from "../Loader/Loader";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import { useParams } from "react-router-dom";
 import { requestMoviesByCast } from "../../services/api";
+import css from "./MovieCast.module.css";
 
 const MovieCast = () => {
   const { movieId } = useParams();
@@ -35,10 +36,11 @@ const MovieCast = () => {
         !isError &&
         (movieCast && movieCast.length > 0 ? (
           <div>
-            <ul>
+            <ul className={css.castList}>
               {movieCast.map((actor) => (
-                <li key={actor.id}>
+                <li key={actor.id} className={css.castItem}>
                   <img
+                    className={css.castPhoto}
                     src={
                       actor.profile_path
                         ? `https://image.tmdb.org/t/p/w500${actor.profile_path}`
@@ -46,7 +48,7 @@ const MovieCast = () => {
                     }
                     alt={actor.name}
                   />
-                  <h3>{actor.name}</h3>
+                  <h3 className={css.castName}>{actor.name}</h3>
                   <p>Character: {actor.character}</p>
                 </li>
               ))}

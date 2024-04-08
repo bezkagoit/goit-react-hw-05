@@ -1,0 +1,84 @@
+.header {
+  padding: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.searchContainer {
+  position: relative;
+  display: inline-block;
+}
+.inputField {
+  position: relative;
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 4px;
+  width: 260px;
+}
+
+.searchBoxBtn {
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  transform: translateY(-50%);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.movieBaseInfo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.moviePoster {
+  max-width: 500px;
+}
+
+.movieImg {
+  width: 250px;
+}
+
+.movieTitle {
+  margin-top: 0;
+}
+
+.backlLink {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: #e7e7e7;
+  color: #111;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  margin-bottom: 16px;
+}
+.backlLink:hover,
+.backlLink:focus,
+.backlLink:active {
+  border: 1px solid #111;
+  color: #000;
+}
+
+@media screen and (min-width: 768px) {
+  .movieBaseInfo {
+    flex-wrap: nowrap;
+  }
+  .movieImg {
+    width: 300px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .movieImg {
+    width: 450px;
+  }
+}

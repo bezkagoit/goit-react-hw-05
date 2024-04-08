@@ -3,6 +3,7 @@ import Loader from "../Loader/Loader";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import { requestMoviesByReviews } from "../../services/api";
 import { useParams } from "react-router-dom";
+import css from "./MovieReviews.module.css";
 
 const MovieReviews = () => {
   const { movieId } = useParams();
@@ -33,10 +34,10 @@ const MovieReviews = () => {
       {!isLoading && !isError && (
         <div>
           {movieReviews && movieReviews.length > 0 ? (
-            <ul>
+            <ul className={css.reviewsList}>
               {movieReviews.map((review) => {
                 return (
-                  <li key={review.id}>
+                  <li key={review.id} className={css.reviewAuthor}>
                     <h2>{review.author}</h2>
                     <p>{review.content}</p>
                     <p>{review.created_at}</p>

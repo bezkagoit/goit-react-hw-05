@@ -9,6 +9,8 @@ import ErrorMessage from "../components/ErrorMessage/ErrorMessage";
 import { requestMoviesByQuery } from "../services/api";
 import { useSearchParams } from "react-router-dom";
 
+import css from "./MovieDetailsPage.module.css";
+
 const MoviesPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -60,10 +62,15 @@ const MoviesPage = () => {
   return (
     <div>
       <Toaster />
-      <form onSubmit={handleSubmit}>
-        <div>
-          <input placeholder="Search movies" type="text" name="query" />
-          <button type="submit">
+      <form onSubmit={handleSubmit} className={css.header}>
+        <div className={css.searchContainer}>
+          <input
+            className={css.inputField}
+            placeholder="Search movies"
+            type="text"
+            name="query"
+          />
+          <button type="submit" className={css.searchBoxBtn}>
             <IoSearch />
           </button>
         </div>
