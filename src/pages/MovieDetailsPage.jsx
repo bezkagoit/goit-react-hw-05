@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useEffect, useState } from "react";
+import React, { Suspense, lazy, useEffect, useRef, useState } from "react";
 import {
   NavLink,
   Route,
@@ -10,11 +10,18 @@ import ErrorMessage from "../components/ErrorMessage/ErrorMessage";
 import Loader from "../components/Loader/Loader";
 import { requestMoviesById } from "../services/api";
 import css from "./MovieDetailsPage.module.css";
+import clsx from "clsx";
 
 const MovieCast = lazy(() => import("../components/MovieCast/MovieCast"));
 const MovieReviews = lazy(() =>
   import("../components/MovieReviews/MovieReviews")
 );
+
+// const navLinkClass = ({ isActive }) => {
+//   return clsx(css.detailsLink, {
+//     [css.active]: isActive,
+//   });
+// };
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
@@ -22,7 +29,7 @@ const MovieDetailsPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const location = useLocation();
-  const backLinkRef = location.state?.from ?? "/";
+  const backLinkRef = useRef(location.state?.from ?? "/");
 
   useEffect(() => {
     const fetchMoviesId = async () => {
@@ -50,7 +57,7 @@ const MovieDetailsPage = () => {
       {isError && <ErrorMessage />}
       {movieData !== null && (
         <section>
-          <NavLink to={backLinkRef} className={css.backlLink}>
+          <NavLink to={backLinkRef.current} className={css.backlLink}>
             Go Back
           </NavLink>
           <div className={css.movieBaseInfo}>
